@@ -1,0 +1,39 @@
+{
+	"storyName": "vs garlicozzy",
+	"hideFreeplay": false,
+	"weekBackground": "garlicozzy",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"weekBefore": "tutorial",
+	"startUnlocked": true,
+	"weekCharacters": [
+		"garlicozzy",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"stormy",
+			"garlicozzy",
+			[
+				0,
+				113,
+				0
+			]
+		],
+		[
+			"hyyyaaaah",
+			"garlicozzy",
+			[
+				0,
+				113,
+				0
+			]
+		]
+	],
+	"hideStoryMode": false,
+	"weekName": "Vs Garlicozzy"
+}

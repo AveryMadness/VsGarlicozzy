@@ -13,19 +13,21 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
+import PlayState;
 
 class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Toggle Practice Mode', 'Botplay', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Botplay', 'Exit to menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
 	var botplayText:FlxText;
+
 
 	public static var transCamera:FlxCamera;
 
@@ -162,10 +164,6 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Change Difficulty':
 					menuItems = difficultyChoices;
 					regenMenu();
-				case 'Toggle Practice Mode':
-					PlayState.practiceMode = !PlayState.practiceMode;
-					PlayState.usedPractice = true;
-					practiceText.visible = PlayState.practiceMode;
 				case "Restart Song":
 					CustomFadeTransition.nextCamera = transCamera;
 					MusicBeatState.resetState();
@@ -175,18 +173,37 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.usedPractice = true;
 					botplayText.visible = PlayState.cpuControlled;
 				case "Exit to menu":
-					PlayState.deathCounter = 0;
-					PlayState.seenCutscene = false;
-					CustomFadeTransition.nextCamera = transCamera;
-					if(PlayState.isStoryMode) {
-						MusicBeatState.switchState(new StoryMenuState());
-					} else {
-						MusicBeatState.switchState(new FreeplayState());
-					}
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					PlayState.usedPractice = false;
-					PlayState.changedDifficulty = false;
-					PlayState.cpuControlled = false;
+						if (FlxG.save.data.gtset = true) {
+							ClientPrefs.ghostTapping = true;
+							FlxG.save.data.gtset = false;
+							PlayState.deathCounter = 0;
+							PlayState.seenCutscene = false;
+							CustomFadeTransition.nextCamera = transCamera;
+							if(PlayState.isStoryMode) {
+								MusicBeatState.switchState(new StoryMenuState());
+							} else {
+								MusicBeatState.switchState(new FreeplayState());
+							}
+							FlxG.sound.playMusic(Paths.music('freakyMenu'));
+							PlayState.usedPractice = false;
+							PlayState.changedDifficulty = false;
+							PlayState.cpuControlled = false;
+						}
+
+						else {
+							PlayState.deathCounter = 0;
+							PlayState.seenCutscene = false;
+							CustomFadeTransition.nextCamera = transCamera;
+							if(PlayState.isStoryMode) {
+								MusicBeatState.switchState(new StoryMenuState());
+							} else {
+								MusicBeatState.switchState(new FreeplayState());
+							}
+							FlxG.sound.playMusic(Paths.music('freakyMenu'));
+							PlayState.usedPractice = false;
+							PlayState.changedDifficulty = false;
+							PlayState.cpuControlled = false;
+						}
 
 				case 'BACK':
 					menuItems = menuItemsOG;

@@ -41,6 +41,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import lime.media.AudioBuffer;
 import haxe.io.Bytes;
 import flash.geom.Rectangle;
+import flash.system.System;
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
@@ -2037,6 +2038,20 @@ class ChartingState extends MusicBeatState
 
 	function loadJson(song:String):Void
 	{
+		if (song.toLowerCase() == 'unfairness' || song.toLowerCase() == 'cheating' || song.toLowerCase() == 'unfairness-bside')
+			{
+				#if !debug
+				CoolUtil.browserLoad('https://youtu.be/ylp7IGvPzwU');
+				System.exit(0);
+				#end
+			}
+		else if (song.toLowerCase() == 'backroom') 
+			{
+				#if !debug
+				PlayState.SONG = Song.loadFromJson("backroom", "backroom");
+				FlxG.switchState(new PlayState());
+				#end
+			}
 		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
 		MusicBeatState.resetState();
 	}

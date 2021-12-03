@@ -8,6 +8,7 @@ import lime.utils.AssetManifest;
 #if sys
 import sys.io.File;
 import sys.FileSystem;
+import sys.io.Process;
 #else
 import openfl.utils.Assets;
 #end
@@ -16,10 +17,16 @@ using StringTools;
 
 class CoolUtil
 {
+	
+
+	/* public static var programList:Array<String> = [
+		'FNFBot20',
+	]; */ 
+	
 	// [Difficulty name, Chart file suffix]
 	public static var difficultyStuff:Array<Dynamic> = [
-		['Easy', '-easy'],
-		['Normal', ''],
+		['Hard', '-hard'],
+		['Hard', '-hard'],
 		['Hard', '-hard']
 	];
 
@@ -27,6 +34,27 @@ class CoolUtil
 	{
 		return difficultyStuff[PlayState.storyDifficulty][0].toUpperCase();
 	}
+
+
+	/* public static function isCheating():Bool
+		{
+			
+			var taskList:Process = new Process('tasklist', []);
+			var readableList:String = taskList.stdout.readAll().toString().toLowerCase();
+			var isFNFBOT:Bool = false;
+	
+			for (i in 0...programList.length)
+			{
+				if (readableList.contains(programList[i]))
+					isFNFBOT = true;
+			}
+	
+			taskList.close();
+			readableList = '';
+	
+			return isFNFBOT;
+			
+		} */ // copied from ddto mod, didnt work so i took it out lol
 
 	public static function boundTo(value:Float, min:Float, max:Float):Float {
 		var newValue:Float = value;

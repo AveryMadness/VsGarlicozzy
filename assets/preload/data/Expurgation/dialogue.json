@@ -1,0 +1,53 @@
+{
+	"dialogue": [
+		{
+			"speed": 0.05,
+			"portrait": "bf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "what the fuck was that you weak shit"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "avery",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "fuck you say to me you little shit "
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "ratio"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "avery",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "counter"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "fuck"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "avery",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "L"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "are we waiting for the next song orrrr"
+		}
+	]
+}
