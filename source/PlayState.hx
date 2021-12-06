@@ -250,19 +250,6 @@ class PlayState extends MusicBeatState
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
 
-	public function backroomremove()
-		{
-					remove(strumLineNotes);
-					remove(scoreTxt);
-					remove(healthBar);
-					remove(healthBarBG);
-					remove(iconP1);
-					remove(iconP2);
-					remove(timeBar);
-					remove(timeBarBG);
-					remove(timeTxt);
-		}
-
 	override public function create()
 	{
 		#if MODS_ALLOWED
@@ -337,12 +324,6 @@ class PlayState extends MusicBeatState
 					curStage = 'school';
 				case 'thorns':
 					curStage = 'schoolEvil';
-				case 'cheating':
-					curStage = 'cheating';
-				case 'unfairness':
-					curStage = 'cheating2';
-				case 'unfairness-bside':
-					curStage = 'cheating3';
 				default:
 					curStage = 'stage';
 			}
@@ -1950,81 +1931,8 @@ class PlayState extends MusicBeatState
 						if(heyTimer <= 0) {
 							bottomBoppers.dance(true);
 							heyTimer = 0;
-						}
 					}
-				case 'cheating':
-					dad.y += (Math.sin(elapsedtime) * 0.5);
-
-					playerStrums.forEach(function(spr:FlxSprite)
-					{
-						spr.x += Math.sin(elapsedtime) * ((spr.ID % 2) == 0 ? 1 : -1);
-						spr.x -= Math.sin(elapsedtime) * 1.5;
-					});
-
-					opponentStrums.forEach(function(spr:FlxSprite)
-					{
-						spr.x -= Math.sin(elapsedtime) * ((spr.ID % 2) == 0 ? 1 : -1);
-						spr.x += Math.sin(elapsedtime) * 1.5;
-					});
-
-				case 'cheating2':
-					if (ClientPrefs.ghostTapping = true ) {
-						ClientPrefs.ghostTapping = false;
-						FlxG.save.data.gtset = true;
-					}
-
-			
-
-					if (ClientPrefs.unfairmodchart ) {
-					dad.y += (Math.sin(elapsedtime) * 0.5);
-	
-					playerStrums.forEach(function(spr:FlxSprite)
-					{
-						spr.x = ((FlxG.width / 2) - (spr.width / 2)) + (Math.sin(elapsedtime + (spr.ID)) * 300);
-						spr.y = ((FlxG.height / 2) - (spr.height / 2)) + (Math.cos(elapsedtime + (spr.ID)) * 300);
-					});
-	
-					opponentStrums.forEach(function(spr:FlxSprite)
-					{
-						spr.x = ((FlxG.width / 2) - (spr.width / 2)) + (Math.sin((elapsedtime + (spr.ID )) * 2) * 300);
-						spr.y = ((FlxG.height / 2) - (spr.height / 2)) + (Math.cos((elapsedtime + (spr.ID)) * 2) * 300);
-					});
 				}
-
-					case 'cheating3':
-
-						if (ClientPrefs.ghostTapping = true ) {
-							ClientPrefs.ghostTapping = false;
-							FlxG.save.data.gtset = true;
-						}
-
-						if (ClientPrefs.middleScroll = true) {
-							ClientPrefs.middleScroll = false;
-							FlxG.save.data.msset = true;
-						}
-
-						if (ClientPrefs.unfairmodchart) {
-						dad.y += (Math.sin(elapsedtime) * 2);
-						dad.x += (Math.sin(elapsedtime) * 2);
-		
-						playerStrums.forEach(function(spr:FlxSprite)
-						{
-							spr.x = ((FlxG.width / 2) - (spr.width / 2)) + (Math.sin((elapsedtime + (spr.ID)) * 6) * 300);
-							spr.y = ((FlxG.height / 2) - (spr.height / 2)) + (Math.cos((elapsedtime + (spr.ID)) * 6) * 300);
-						});
-		
-						opponentStrums.forEach(function(spr:FlxSprite)
-						{
-							spr.x = ((FlxG.width / 2) - (spr.width / 2)) + (Math.sin((elapsedtime + (spr.ID)) * 4) * 300);
-							spr.y = ((FlxG.height / 2) - (spr.height / 2)) + (Math.cos((elapsedtime + (spr.ID)) * 4) * 300);
-						});
-					}
-		
-				case 'backroom':
-					ClientPrefs.ghostTapping = true;
-					backroomremove();
-					
-					
 			}
 
 		if(!inCutscene) {
@@ -2049,14 +1957,6 @@ class PlayState extends MusicBeatState
 		}
 
 		if(cpuControlled) {
-			if (SONG.song.toLowerCase() == 'cheating')
-				{
-					health = 0;
-				}
-			else if (SONG.song.toLowerCase() == 'unfairness')
-				{
-					health = 0;
-				}
 			botplaySine += 180 * elapsed;
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
@@ -2066,10 +1966,6 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
-			if (SONG.song.toLowerCase() == 'backroom') {
-
-			}
-			else {
 				var ret:Dynamic = callOnLuas('onPause', []);
 				if(ret != FunkinLua.Function_Stop) {
 					persistentUpdate = false;
@@ -2091,7 +1987,7 @@ class PlayState extends MusicBeatState
 						}
 						PauseSubState.transCamera = camOther;
 						openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-					}
+		
 			
 					#if desktop
 					DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
@@ -2104,34 +2000,6 @@ class PlayState extends MusicBeatState
 		
 
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene) {
-	
-			if (SONG.song.toLowerCase() == 'hyyyaaaah' || SONG.song.toLowerCase() == 'stormy' || SONG.song.toLowerCase() == 'madness' || SONG.song.toLowerCase() == 'expurgation') 
-			{
-
-				PlayState.SONG = Song.loadFromJson('unfairness', 'unfairness');
-				LoadingState.loadAndSwitchState(new PlayState());
-				trace('you pressed 7. welcome to hell ( jack reference )');
-			}
-
-			else if (SONG.song.toLowerCase() == 'cheating') 
-			{
-				PlayState.SONG = Song.loadFromJson("unfairness", "unfairness");
-				FlxG.switchState(new PlayState());	
-			}
-			else if (SONG.song.toLowerCase() == 'unfairness' || SONG.song.toLowerCase() == 'unfairness-bside') 
-				{
-					PlayState.SONG = Song.loadFromJson('backroom', 'backroom');
-					LoadingState.loadAndSwitchState(new PlayState());	
-					trace('stop cheating');
-					trace('( kianna reference )');
-				}
-			else if (SONG.song.toLowerCase() == 'backroom')
-				{
-					PlayState.SONG = Song.loadFromJson('backroom', 'backroom');
-					LoadingState.loadAndSwitchState(new PlayState());	
-					trace('no');
-				}
-			else {
 			persistentUpdate = false;
 			paused = true;
 			cancelFadeTween();
@@ -2141,17 +2009,7 @@ class PlayState extends MusicBeatState
 			#if desktop
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
-			}
-			
 		}
-		
-		else if (FlxG.keys.justPressed.B && !endingSong && !inCutscene ) {
-					PlayState.SONG = Song.loadFromJson('unfairness-bside', 'unfairness-bside');
-					LoadingState.loadAndSwitchState(new PlayState());	
-					trace('have fun');
-		}
-
-
 
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
@@ -2180,20 +2038,12 @@ class PlayState extends MusicBeatState
 			iconP2.animation.curAnim.curFrame = 1;
 		else
 			iconP2.animation.curAnim.curFrame = 0;
-
-		if (FlxG.keys.justPressed.EIGHT && !endingSong && !inCutscene) {
-			if (SONG.song.toLowerCase() == 'backroom')
-				{
-
-				}
-			else {	
 			persistentUpdate = false;
 			paused = true;
 			cancelFadeTween();
 			CustomFadeTransition.nextCamera = camOther;
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
-	}
 
 		if (startingSong)
 		{
@@ -3025,8 +2875,8 @@ class PlayState extends MusicBeatState
 			return;
 		} else {
 			var achieve:String = checkForAchievement(['week1_nomiss', 'week2_nomiss', 'week3_nomiss', 'week4_nomiss',
-				'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'weekg_nomiss', 'ur_bad',
-				'ur_good', 'hype', 'two_keys', 'toastie', 'debugger', 'cheater', 'truecheater', 'whatthefuck']);
+				'week5_nomiss', 'week6_nomiss', 'week7_nomiss', 'ur_bad',
+				'ur_good', 'hype', 'two_keys', 'toastie', 'debugger',]);
 
 			if(achieve != null) {
 				startAchievement(achieve);
@@ -4122,8 +3972,6 @@ class PlayState extends MusicBeatState
 									if(achievementName == 'week6_nomiss') unlock = true;
 								case 'week7':
 									if(achievementName == 'week7_nomiss') unlock = true;
-								case 'weekg':
-									if(achievementName == 'weekg_nomiss') unlock = true;
 							}
 						}
 					case 'ur_bad':
@@ -4165,19 +4013,6 @@ class PlayState extends MusicBeatState
 						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
 							unlock = true;
 						}
-					case 'cheater':
-						if(SONG.song.toLowerCase() == 'cheating' && curStage == 'cheating') {
-							unlock = true;
-						}
-					case 'truecheater':
-						if(SONG.song.toLowerCase() == 'unfairness' && curStage == 'cheating2' && !ClientPrefs.unfairmodchart) {
-							unlock = true;
-						}
-					case 'whatthefuck':
-						if(SONG.song.toLowerCase() == 'unfairness-bside' && curStage == 'cheating3' && !cpuControlled)
-							{
-								unlock = true; // if this ever happens i will go mad
-							}
 				}
 
 				if(unlock) {
