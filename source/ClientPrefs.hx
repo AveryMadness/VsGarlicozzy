@@ -24,7 +24,11 @@ class ClientPrefs {
 	public static var imagesPersist:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
-	public static var unfairmodchart:Bool = true;
+	public static var unfairmodchart:Bool = true; 
+	// more madness engine seperation shit
+      /*public static var modoption1:Bool = false;
+	public static var modoption2:Bool = false;
+	public static var modoption3:Bool = false;*/
 
 
 	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState.hx)'s list
